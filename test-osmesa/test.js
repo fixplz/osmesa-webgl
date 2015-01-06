@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-var fs = require('fs');
-var Image = require('node-image-2').Image;
 var osmesa = require('../index');
 
 var context = osmesa.CreateContext();
@@ -18,18 +16,7 @@ gl.finish();
 osmesa.DestroyContext(context);
 
 
-function swapRedAndBlue(buffer) {
-	var pixels = buffer.length / 4;
-	for (var i = 0; i < pixels; ++i) {
-		var r = buffer[i*4];
-		var b = buffer[i*4+2];
-		buffer[i*4] = b;
-		buffer[i*4+2] = r;
-	}
-}
+var fs = require('fs')
+var saveBuffer = require('./saveBuffer')
 
-swapRedAndBlue(buffer);
-var imgObject = Image.convertFromRawBits(buffer, width, height);
-var compressedBuffer = imgObject.saveToMemory(Image.FIF_JPEG);
-
-fs.writeFileSync('output.jpg', compressedBuffer);
+fs.writeFileSync('output.png', saveBuffer(buffer, width, height, true))
