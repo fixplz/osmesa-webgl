@@ -90,15 +90,12 @@ inline Type* getArrayData(Local<Value> arg, int* num = NULL) {
 }
 
 OSMesaContext getOSMesaContext(const v8::Local<v8::Value>& value) {
-  std::cout << "getOSMesaContext" << std::endl;
-  std::cout << "value->IsNumber() " << value->IsNumber() << std::endl;
-  if (!value->IsNumber()) {
+  if (!value->IsObject() && value->ToObject()->InternalFieldCount() < 1) {
     ThrowError("Expected context object");
-	return 0;
+    return 0;
   }
 
-  OSMesaContext context = (OSMesaContext)value->IntegerValue(); // NOTE: This cast is unchecked
-  std::cout << "context " << context << std::endl;
+  OSMesaContext context = (OSMesaContext)value->ToObject()->GetPointerFromInternalField(0);
 
   return context;
 }
@@ -107,18 +104,21 @@ NAN_METHOD(CreateContext) {
   NanScope();
 
   OSMesaContext context = OSMesaCreateContextExt(OSMESA_RGBA, 0, 0, 0, NULL);
-  std::cout << "CreateContext: " << context << std::endl;
 
-  NanReturnValue(JS_INT((intptr_t)context));
+  v8::Handle<v8::ObjectTemplate> obj_tmpl = v8::ObjectTemplate::New();
+  obj_tmpl->SetInternalFieldCount(1);
+
+  v8::Handle<v8::Object> obj = obj_tmpl->NewInstance();
+  obj->SetPointerInInternalField(0, context);
+
+  NanReturnValue(obj);
 }
 
 NAN_METHOD(DestroyContext) {
   NanScope();
 
-  std::cout << "DestroyContext!" << std::endl;
   OSMesaContext context = getOSMesaContext(args[0]);
   if (!context) NanReturnValue(Undefined());
-  std::cout << "DestroyContext: " << context << std::endl;
   OSMesaDestroyContext(context);
 
   NanReturnValue(Undefined());
