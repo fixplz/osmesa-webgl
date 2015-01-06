@@ -26,7 +26,8 @@
     }
   ],
   "dependencies": {
-    "nan": "^1.0.0"
+    "nan": "^1.0.0",
+    "node-webgl-wrapper": "git+https://github.com/fixplz/node-webgl-wrapper.git"
   },
   "devDependencies": {
     "png": "^3.0.3"
