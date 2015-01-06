@@ -2,21 +2,17 @@
 	'targets': [
 		{
 			'target_name': 'webgl',
-			'sources': [ 
+			'sources': [
 				'src/bindings.cc',
 				'src/webgl.cc',
 			],
 			'include_dirs': [
 				'<!(node -e "require(\\"nan\\")")',
-				'<(module_root_dir)/Mesa-10.1.0/include',
+				'<!@(pkg-config osmesa --cflags-only-I | sed s/-I//g)'
 			],
 			'libraries': [
-				'-lOSMesa', '-L<(module_root_dir)/Mesa-10.1.0/lib/gallium',
-				'-ltinfo'
+				'<!@(pkg-config osmesa --libs)'
 			],
-			'ldflags': [
-				'-Wl,-rpath,\$$ORIGIN/../../Mesa-10.1.0/lib/gallium',
-			]
 		}
 	]
 }

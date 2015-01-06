@@ -17,7 +17,7 @@
     "url": "https://github.com/maghoff/osmesa-webgl.git"
   },
   "scripts": {
-    "install": "./install.sh"
+    "install": "node-gyp rebuild"
   },
   "licenses": [
     {
