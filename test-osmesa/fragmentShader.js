@@ -1,15 +1,10 @@
 #!/usr/bin/env node
 
 var fs = require('fs');
-var osmesa = require('../index');
+var webgl = require('../index');
 
-var context = osmesa.CreateContext();
+var gl = webgl.WebGL(800, 800);
 
-var width = 800, height = 800, bpp = 32;
-var buffer = new Uint8Array(width * height * bpp / 8);
-osmesa.MakeCurrent(context, buffer, width, height);
-
-var gl = osmesa;
 
 
 function compileShader(gl, type, source) {
@@ -82,9 +77,9 @@ gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
 
 gl.finish();
 
-osmesa.DestroyContext(context);
+gl.destroy();
 
 
 var saveBuffer = require('./saveBuffer')
 
-fs.writeFileSync('output.png', saveBuffer(buffer, width, height, true))
+fs.writeFileSync('output.png', saveBuffer(gl.buffer, gl.width, gl.height, true))
