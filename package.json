@@ -30,6 +30,7 @@
     "node-webgl-wrapper": "git+https://github.com/fixplz/node-webgl-wrapper.git"
   },
   "devDependencies": {
+    "canvas": "git+https://github.com/fixplz/node-canvas.git",
     "png": "^3.0.3",
     "three": "^0.69.0"
   }

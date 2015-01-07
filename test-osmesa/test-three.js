@@ -1,8 +1,8 @@
 // require('segfault-handler').registerHandler()
 
 var THREE = require('three')
+var Canvas = require('canvas')
 
-// var Canvas = require('canvas')
 
 var webgl = require('../index')
 var gl = new webgl.WebGLCompat(800, 800)
@@ -28,15 +28,13 @@ renderer.setSize( gl.width, gl.height );
 renderer.setClearColor( 0, 0 )
 
 
-// var image = new Canvas.Image()
-// image.src = require('fs').readFileSync('texture.jpg')
-// console.log('image',image.width,image.height)
-// var texture = new THREE.Texture(image)
-// texture.needsUpdate = true
+var image = new Canvas.Image()
+image.src = require('fs').readFileSync('texture.jpg')
+console.log('image',image.width,image.height)
+var texture = new THREE.Texture(image)
+texture.needsUpdate = true
 
-// var cube = new THREE.Mesh( new THREE.CubeGeometry( 1, 1, 1 ), new THREE.MeshPhongMaterial( { map: texture } ) )
-
-var cube = new THREE.Mesh( new THREE.CubeGeometry( 1, 1, 1 ), new THREE.MeshPhongMaterial( { color: 0x00ff00 } ) )
+var cube = new THREE.Mesh( new THREE.CubeGeometry( 1, 1, 1 ), new THREE.MeshPhongMaterial( { map: texture } ) )
 cube.rotation.x += 1;
 cube.rotation.y += 1;
 scene.add(cube);
