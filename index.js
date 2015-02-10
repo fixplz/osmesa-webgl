@@ -5,24 +5,31 @@ function WebGLBase(width, height) {
         return WebGLBase.apply(Object.create(WebGLBase.prototype), arguments)
     }
 
-    this._context = WebGLMesa.CreateContext.call(null, arguments)
-
-    this.width = width
-    this.height = height
-
-    this.buffer = new Buffer(width * height * 4)
-
-    this.makeCurrent()
+    this.resize(width, height)
 }
 
 WebGLBase.prototype = Object.create(WebGLMesa)
 
 WebGLBase.prototype.makeCurrent = function() {
+    if(! this._context)
+        this._context = WebGLMesa.CreateContext()
+
     WebGLMesa.MakeCurrent(this._context, this.buffer, this.width, this.height)
 }
 
-WebGLBase.prototype.destroy = function() {
+WebGLBase.prototype.reset = function() {
     WebGLMesa.DestroyContext(this._context)
+    this._context = null
+}
+
+WebGLBase.prototype.resize = function(width, height) {
+    if(width == this.width && height == this.height)
+        return
+
+    this.width = width
+    this.height = height
+
+    this.buffer = new Buffer(width * height * 4)
 }
 
 module.exports = require('node-webgl-wrapper')(WebGLBase)
