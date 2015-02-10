@@ -9,7 +9,7 @@
 #include "webgl.h"
 #include <cstdlib>
 
-#define JS_GL_CONSTANT(name) target->Set(JS_STR( #name ), JS_INT(GL_ ## name))
+#define JS_GL_CONSTANT(name) target->Set(NanNew<String>( #name ), NanNew<Number>(GL_ ## name))
 
 extern "C" {
 void init(Handle<Object> target)
@@ -611,21 +611,21 @@ void init(Handle<Object> target)
   JS_GL_CONSTANT(INVALID_FRAMEBUFFER_OPERATION);
 
   /* WebGL-specific enums */
-  target->Set(JS_STR( "UNPACK_FLIP_Y_WEBGL" ), JS_INT(0x9240));
-  target->Set(JS_STR( "UNPACK_PREMULTIPLY_ALPHA_WEBGL" ), JS_INT(0x9241));
-  target->Set(JS_STR( "CONTEXT_LOST_WEBGL" ), JS_INT(0x9242));
-  target->Set(JS_STR( "UNPACK_COLORSPACE_CONVERSION_WEBGL" ), JS_INT(0x9243));
-  target->Set(JS_STR( "BROWSER_DEFAULT_WEBGL" ), JS_INT(0x9244));
+  target->Set(NanNew<String>( "UNPACK_FLIP_Y_WEBGL" ), NanNew<Number>(0x9240));
+  target->Set(NanNew<String>( "UNPACK_PREMULTIPLY_ALPHA_WEBGL" ), NanNew<Number>(0x9241));
+  target->Set(NanNew<String>( "CONTEXT_LOST_WEBGL" ), NanNew<Number>(0x9242));
+  target->Set(NanNew<String>( "UNPACK_COLORSPACE_CONVERSION_WEBGL" ), NanNew<Number>(0x9243));
+  target->Set(NanNew<String>( "BROWSER_DEFAULT_WEBGL" ), NanNew<Number>(0x9244));
 
   //////////////////////////////
   // NOT in WebGL spec
   //////////////////////////////
 
   // PBO
-  target->Set(JS_STR( "PIXEL_PACK_BUFFER" ), JS_INT(0x88EB));
-  target->Set(JS_STR( "PIXEL_UNPACK_BUFFER" ), JS_INT(0x88EC));
-  target->Set(JS_STR( "PIXEL_PACK_BUFFER_BINDING" ), JS_INT(0x88ED));
-  target->Set(JS_STR( "PIXEL_UNPACK_BUFFER_BINDING" ), JS_INT(0x88EF));
+  target->Set(NanNew<String>( "PIXEL_PACK_BUFFER" ), NanNew<Number>(0x88EB));
+  target->Set(NanNew<String>( "PIXEL_UNPACK_BUFFER" ), NanNew<Number>(0x88EC));
+  target->Set(NanNew<String>( "PIXEL_PACK_BUFFER_BINDING" ), NanNew<Number>(0x88ED));
+  target->Set(NanNew<String>( "PIXEL_UNPACK_BUFFER_BINDING" ), NanNew<Number>(0x88EF));
 }
 
 NODE_MODULE(webgl, init)
