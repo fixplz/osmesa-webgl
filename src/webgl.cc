@@ -104,7 +104,7 @@ OSMesaContext getOSMesaContext(const v8::Local<v8::Value>& value) {
 NAN_METHOD(CreateContext) {
   NanScope();
 
-  OSMesaContext context = OSMesaCreateContextExt(OSMESA_RGBA, 16, 0, 0, NULL);
+  OSMesaContext context = OSMesaCreateContextExt(OSMESA_RGBA, 32, 0, 0, NULL);
 
   v8::Handle<v8::ObjectTemplate> obj_tmpl = v8::ObjectTemplate::New();
   obj_tmpl->SetInternalFieldCount(1);
