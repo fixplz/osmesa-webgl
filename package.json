@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "canvas": "git+https://github.com/fixplz/node-canvas.git",
-    "png": "^3.0.3",
+    "pngjs": "git+https://github.com/gusc/pngjs.git",
     "three": "^0.69.0"
   }
 }

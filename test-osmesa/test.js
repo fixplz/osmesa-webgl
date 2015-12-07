@@ -3,12 +3,13 @@
 var webgl = require('../index');
 
 var gl = webgl.WebGL(800, 800);
+gl.makeCurrent()
 
 gl.clearColor(0.7, 0.8, 0.9, 1.0);
 gl.clear(gl.COLOR_BUFFER_BIT);
 gl.finish();
 
-gl.destroy();
+// gl.destroy();
 
 
 var fs = require('fs')

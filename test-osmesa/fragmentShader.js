@@ -4,14 +4,14 @@ var fs = require('fs');
 var webgl = require('../index');
 
 var gl = webgl.WebGL(800, 800);
-
+gl.makeCurrent()
 
 
 function compileShader(gl, type, source) {
 	var shader = gl.createShader(type);
 	gl.shaderSource(shader, source);
 	gl.compileShader(shader);
-	if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {  
+	if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
 		throw new Error("An error occurred compiling the shaders: " + gl.getShaderInfoLog(shader));
 	}
 	return shader;
@@ -77,7 +77,7 @@ gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
 
 gl.finish();
 
-gl.destroy();
+// gl.destroy();
 
 
 var saveBuffer = require('./saveBuffer')

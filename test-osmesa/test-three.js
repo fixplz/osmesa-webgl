@@ -6,6 +6,7 @@ var Canvas = require('canvas')
 
 var webgl = require('../index')
 var gl = new webgl.WebGLCompat(800, 800)
+gl.makeCurrent()
 gl.shaderCompat = true
 gl.disableExtensions = true
 
@@ -39,7 +40,7 @@ cube.rotation.x += 1;
 cube.rotation.y += 1;
 scene.add(cube);
 
-var sphere = new THREE.Mesh( new THREE.SphereGeometry( 0.3 ), new THREE.MeshPhongMaterial( { color: 0xff0000 } ) ) 
+var sphere = new THREE.Mesh( new THREE.SphereGeometry( 0.3 ), new THREE.MeshPhongMaterial( { color: 0xff0000 } ) )
 sphere.position.x = 2;
 scene.add(sphere);
 
